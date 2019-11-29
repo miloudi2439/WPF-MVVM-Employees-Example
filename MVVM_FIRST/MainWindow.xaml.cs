@@ -42,8 +42,10 @@ namespace MVVM_FIRST
 
             EnterpriseViewControl.DataContext = enterpriseViewModelObject;*/
         }
-        
 
+        private void TabablzControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
+        }
     }
 }

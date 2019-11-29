@@ -7,29 +7,62 @@
         xmlns:views="clr-namespace:MVVM_FIRST.View"
         mc:Ignorable="d"
         Title="MainWindow" Height="609.375" Width="1130"
-        WindowStartupLocation="CenterScreen" >
+        WindowStartupLocation="CenterScreen" 
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid>
-        <TabControl TabStripPlacement="Left"  VerticalAlignment="Stretch" Height="Auto" Margin="0" >
+        <TabControl TabStripPlacement="Left"  VerticalAlignment="Stretch" Height="Auto" Margin="-2 -2 0 0" >
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Grid Name="Panel" Background="#5f27cd">
+                                    <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="5 5 5  5"
+                                                />
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Panel" Property="Background" Value="#c8d6e5" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Panel" Property="Background" Value="#5f27cd" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
             <TabItem  Width="auto" >
                 <TabItem.Header>
-                    <StackPanel>
-                        <Image Source="Images/employees.png" Width="80" HorizontalAlignment="Left" Margin="5 5 0 0"/>
-                        <Label FontSize="30">Employees</Label>
+                    <StackPanel >
+                        <Image Source="Images/employees.png" Width="50" HorizontalAlignment="Left" Margin="0 0 0 0"/>
+                        <!--<Label FontSize="30" >Employees</Label>-->
                     </StackPanel>
                 </TabItem.Header>
-                <views:EmployeeView x:Name = "EmployeeViewControl" /> <!-- Loaded = "EmployeeViewControl_Loaded" /> -->
+                <views:EmployeeView x:Name ="EmployeeViewControl" /> <!-- Loaded = "EmployeeViewControl_Loaded" /> -->
             </TabItem>
             <TabItem Width="auto"  >
                 <TabItem.Header>
                     <StackPanel>
-                        <Image Source="Images/enterprises.png" Width="80" Height="45" HorizontalAlignment="Left" Margin="5 5 0 0"/>
-                        <Label FontSize="30">Enterprises</Label>
+                        <Image Source="Images/enterprises.png" Width="50" Height="45" HorizontalAlignment="Left" Margin="0 0 0 0"/>
+                        <!--
+                        <Label FontSize="30">Enterprises</Label> -->
                     </StackPanel>
                 </TabItem.Header>
                 <views:EnterpriseView x:Name = "EnterpriseViewControl" Loaded = "EnterpriseViewControl_Loaded" />
             </TabItem>
-            
-            <ContentControl Content="ContentControl" Height="100" Width="100"/>
+
         </TabControl>
     </Grid>
 </Window>

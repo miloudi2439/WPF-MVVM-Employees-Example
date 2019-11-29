@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 namespace MVVM_FIRST.Model
 {
     public class Employee : INotifyPropertyChanged
-    {
+    {            
+       
         [Key()]
         public int Id { get; set; }
         private string _FirstName;

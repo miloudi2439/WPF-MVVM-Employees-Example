@@ -49,6 +49,7 @@ namespace MVVM_FIRST.ViewModel
             isNew = true;
             SelectedEnterprise = null;
             Window objPopupwindow = new CreateOrUpdateEmployeeView();
+            objPopupwindow.DataContext = this;
             objPopupwindow.Show();
         }
 

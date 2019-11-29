@@ -3,10 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MVVM_FIRST.View"
+        xmlns:local="clr-namespace:MVVM_FIRST.View"       
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="CreateOrUpdateEmployeeView" Height="427.5" Width="333.124"
-        WindowStartupLocation="CenterScreen" >
+        WindowStartupLocation="CenterScreen" 
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{DynamicResource MaterialDesignFont}">
     
     <StackPanel Margin="20 0 20 10" Grid.Column="1" Grid.RowSpan="2">
         <!-- DataContext="{Binding ElementName=Data_Grid_Employee , Path=SelectedItem}" > -->
@@ -66,7 +73,8 @@
                     Content="Cancel" 
                     Command = "{Binding CancelCommand}"
                     CommandParameter="{Binding ElementName=CancelButton}" 
-                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    
                     FontSize="15" Grid.Column="0" Margin="5 10 0 0" />
             <Button Name="SaveButton" Content="Save" Command = "{Binding SaveCommand}" CommandParameter="{Binding ElementName=SaveButton}" FontSize="15" Grid.Column="1" Margin="5 10 0 0"/>
 
