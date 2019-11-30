@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MVVM_FIRST.Model
 {
+
+
+
+    [DataContract]
     public class Enterprise : INotifyPropertyChanged
     {
         private int _Id;
+        [DataMember]
         public int Id
         {
             get { return _Id; }
@@ -21,7 +27,7 @@ namespace MVVM_FIRST.Model
         }
 
         private string _Name;
-
+        [DataMember]
         public string Name
         {
             get { return _Name; }
@@ -32,6 +38,7 @@ namespace MVVM_FIRST.Model
             }
         }
         private string _Location;
+        [DataMember]
         public string Location
         {
             get { return _Location; }
@@ -42,6 +49,7 @@ namespace MVVM_FIRST.Model
             }
         }
         private string _Domaine;
+        [DataMember]
         public string Domaine
         {
             get { return _Domaine; }

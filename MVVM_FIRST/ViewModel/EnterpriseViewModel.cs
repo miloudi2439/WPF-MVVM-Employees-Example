@@ -2,19 +2,49 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MVVM_FIRST.ViewModel
 {
-    class EnterpriseViewModel
+    class EnterpriseViewModel : INotifyPropertyChanged
     {
 
         public EnterpriseViewModel()
         {
-            Enterprises = new ObservableCollection<Enterprise>(new WorkDbContext().GetEnterprises());
+          
+
+            ServiceReference.ServiceClient Client = new ServiceReference.ServiceClient();
+            Enterprises = new ObservableCollection<Enterprise>(Client.GetEnterprises());
         }
-        public static ObservableCollection<Enterprise> Enterprises { get; set; }
+       
+
+        private ObservableCollection<Enterprise> _Enterprises;
+        public ObservableCollection<Enterprise> Enterprises
+        {
+            get
+            {
+                return _Enterprises;
+            }
+            set
+            {
+                _Enterprises = value;
+                OnPropertyChanged("Enterprises");
+            }
+        }
+
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
     }
 }

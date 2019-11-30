@@ -1,4 +1,3 @@
-﻿using MVVM_FIRST.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,22 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MVVM_FIRST.View
+namespace WcfServiceLibrary1
 {
     /// <summary>
-    /// Interaction logic for EnterpriseView.xaml
+    /// Interaction logic for UserControl1.xaml
     /// </summary>
-    public partial class EnterpriseView : UserControl
+    public partial class UserControl1 : UserControl
     {
-        public EnterpriseView()
+        public UserControl1()
         {
             InitializeComponent();
-            this.DataContext = new EnterpriseViewModel();
-        }
-
-        private void DataGrid_SelectedCellsChanged_Enterprise(object sender, SelectedCellsChangedEventArgs e)
-        {
-
         }
     }
 }

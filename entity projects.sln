@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDK", "SDK\SDK.csproj", "{3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{4D25D95B-D780-427A-8C35-B019F5404D31}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Host", "MyCalculatorWCFServiceHost\Host.csproj", "{2D410AA6-569F-4DB3-9117-D6F19BBF5216}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{3114D008-1C3A-403D-B254-9E166FF30835}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3114D008-1C3A-403D-B254-9E166FF30835}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3114D008-1C3A-403D-B254-9E166FF30835}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D410AA6-569F-4DB3-9117-D6F19BBF5216}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D410AA6-569F-4DB3-9117-D6F19BBF5216}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D410AA6-569F-4DB3-9117-D6F19BBF5216}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D410AA6-569F-4DB3-9117-D6F19BBF5216}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
