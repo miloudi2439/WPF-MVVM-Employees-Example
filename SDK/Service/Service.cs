@@ -62,6 +62,11 @@ namespace SDK.Service
             return _UnitOfWork.EnterprisesRepository.NumberOfRows();
         }
 
+        public int NumberofSearchEmployee(string searchText, List<string> filters, int currentPage, int pageSize)
+        {
+            return _UnitOfWork.EmployeesRepository.NumberofSearchEmployee(searchText, filters, currentPage, pageSize);
+        }
+
         public int NumberOfUsers()
         {
             return _UnitOfWork.UsersRepository.NumberOfRows();
@@ -83,6 +88,11 @@ namespace SDK.Service
         {
             _UnitOfWork.UsersRepository.Remove(obj);
             _UnitOfWork.Save();
+        }
+
+        public List<Employee> SearchEmployee(string searchText, List<string> filters, int currentPage, int pageSize)
+        {
+            return _UnitOfWork.EmployeesRepository.SearchEmployee(searchText, filters, currentPage, pageSize);
         }
 
         public void UpdateEmployee(Employee obj, int Id)

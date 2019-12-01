@@ -45,6 +45,10 @@ namespace SDK.Service
         int NumberOfEnterprises();
         [OperationContract]
         int NumberOfUsers();
+        [OperationContract]
+        List<Employee> SearchEmployee(string searchText, List<string> filters, int currentPage, int pageSize);
+        [OperationContract]
+        int NumberofSearchEmployee(string searchText, List<string> filters, int currentPage, int pageSize);
 
 
     }

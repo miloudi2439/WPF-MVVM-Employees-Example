@@ -21,17 +21,17 @@ namespace MVVM_FIRST.ViewModel
     {
         //private ServiceReference1.ServiceClient Client = new ServiceReference1.ServiceClient();
         ChannelFactory<IService> channelFactory = new ChannelFactory<IService>(new BasicHttpBinding(), "http://localhost:8090/SDK/Service/Service");
-        IService Client ;
+        IService Client;
 
 
         public EmployeeViewModel()
         {
 
+            Client = channelFactory.CreateChannel();
             CurrentPage = 0;
             SizeOfPage = 2;
-            Client = channelFactory.CreateChannel();
-            NumberOfPages = GetNumberOfPages(Client.NumberOfEmployees(),SizeOfPage);
-            PaginationInView = (CurrentPage+1).ToString() + "/" + NumberOfPages;
+            NumberOfPages = GetNumberOfPages(Client.NumberOfEmployees(), SizeOfPage);
+            PaginationInView = (CurrentPage + 1).ToString() + "/" + NumberOfPages;
 
             Enterprises = new ObservableCollection<Enterprise>(Client.GetEnterprises());
             ObservableCollection<User> Users = new ObservableCollection<User>(Client.GetUsers());
@@ -41,12 +41,14 @@ namespace MVVM_FIRST.ViewModel
             SaveCommand = new RelayCommand(Save, CanSave);
             NewCommand = new RelayCommand(New);
             CreateCommand = new RelayCommand(Create);
-            UpdateCommand = new RelayCommand(Update , CanUpdate);
+            UpdateCommand = new RelayCommand(Update, CanUpdate);
             CancelCommand = new RelayCommand(Cancel);
             NextPageCommand = new RelayCommand(NextPage, CanNextPage);
             PreviousPageCommand = new RelayCommand(PreviousPage, CanPreviousPage);
             FirstPageCommand = new RelayCommand(FirstPage, CanFirstPage);
-            LastPageCommand = new RelayCommand(LastPage,CanLasttPage); 
+            LastPageCommand = new RelayCommand(LastPage, CanLasttPage);
+
+            FirstNameFilter = true;
         }
 
         private bool CanLasttPage(object obj)
@@ -56,33 +58,55 @@ namespace MVVM_FIRST.ViewModel
 
         private void LastPage(object obj)
         {
-            CurrentPage = NumberOfPages - 1 ;
-            Employees = new ObservableCollection<Employee>(Client.GetEmployeesIncludeEnterprise(CurrentPage, SizeOfPage));
+            CurrentPage = NumberOfPages - 1;
+            if (SearchText != "")
+            {
+                Employees = new ObservableCollection<Employee>(Client.SearchEmployee(SearchText, SelectedFilters(), CurrentPage, SizeOfPage));
+            }
+            else
+            {
+                Employees = new ObservableCollection<Employee>(Client.GetEmployeesIncludeEnterprise(CurrentPage, SizeOfPage));
+            }
+
             PaginationInView = (CurrentPage + 1).ToString() + "/" + NumberOfPages;
         }
 
         private void FirstPage(object obj)
         {
-            CurrentPage = 0 ;
-            Employees = new ObservableCollection<Employee>(Client.GetEmployeesIncludeEnterprise(CurrentPage, SizeOfPage));
+            CurrentPage = 0;
+            if (SearchText != "")
+            {
+                Employees = new ObservableCollection<Employee>(Client.SearchEmployee(SearchText, SelectedFilters(), CurrentPage, SizeOfPage));
+            }
+            else
+            {
+                Employees = new ObservableCollection<Employee>(Client.GetEmployeesIncludeEnterprise(CurrentPage, SizeOfPage));
+            }
             PaginationInView = (CurrentPage + 1).ToString() + "/" + NumberOfPages;
         }
 
         private bool CanFirstPage(object obj)
         {
-            
+
             return CurrentPage > 0;
         }
 
         private bool CanPreviousPage(object obj)
         {
-            return CurrentPage >0;
+            return CurrentPage > 0;
         }
 
         private void PreviousPage(object obj)
         {
             CurrentPage--;
-            Employees = new ObservableCollection<Employee>(Client.GetEmployeesIncludeEnterprise(CurrentPage, SizeOfPage));
+            if (SearchText != "")
+            {
+                Employees = new ObservableCollection<Employee>(Client.SearchEmployee(SearchText, SelectedFilters(), CurrentPage, SizeOfPage));
+            }
+            else
+            {
+                Employees = new ObservableCollection<Employee>(Client.GetEmployeesIncludeEnterprise(CurrentPage, SizeOfPage));
+            }
             PaginationInView = (CurrentPage + 1).ToString() + "/" + NumberOfPages;
         }
 
@@ -98,23 +122,30 @@ namespace MVVM_FIRST.ViewModel
         private void NextPage(object obj)
         {
             CurrentPage++;
-            Employees = new ObservableCollection<Employee>(Client.GetEmployeesIncludeEnterprise(CurrentPage, SizeOfPage));
+            if (SearchText != "")
+            {
+                Employees = new ObservableCollection<Employee>(Client.SearchEmployee(SearchText, SelectedFilters(), CurrentPage, SizeOfPage));
+            }
+            else
+            {
+                Employees = new ObservableCollection<Employee>(Client.GetEmployeesIncludeEnterprise(CurrentPage, SizeOfPage));
+            }
             PaginationInView = (CurrentPage + 1).ToString() + "/" + NumberOfPages;
         }
 
         private bool CanNextPage(object obj)
         {
-            return (CurrentPage+1) < NumberOfPages;
+            return (CurrentPage + 1) < NumberOfPages;
         }
 
-        public int GetNumberOfPages(int numberOfRows , int sizeOfpage)
+        public int GetNumberOfPages(int numberOfRows, int sizeOfpage)
         {
             int N = numberOfRows / sizeOfpage;
             if (numberOfRows % sizeOfpage > 0)
             {
                 N++;
             }
-            return N; 
+            return N;
 
         }
 
@@ -123,7 +154,8 @@ namespace MVVM_FIRST.ViewModel
         public string PaginationInView
         {
             get { return _PaginationInView; }
-            set {
+            set
+            {
                 _PaginationInView = value;
                 OnPropertyChanged("PaginationInView");
             }
@@ -186,7 +218,7 @@ namespace MVVM_FIRST.ViewModel
             SelectedEnterprise = SelectedEmployee.Enterprise;
             Window objPopupwindow = new CreateOrUpdateEmployeeView();
             objPopupwindow.DataContext = this;
-            objPopupwindow.Show();            
+            objPopupwindow.Show();
         }
 
         private ObservableCollection<Employee> _Employees;
@@ -215,6 +247,60 @@ namespace MVVM_FIRST.ViewModel
         public RelayCommand FirstPageCommand { get; set; }
         public RelayCommand LastPageCommand { get; set; }
 
+        private bool _AllFilter;
+
+        public bool AllFilter
+        {
+            get { return _AllFilter; }
+            set
+            {
+                _AllFilter = value;
+                if (value == true)
+                {
+                    FirstNameFilter = true;
+                    LastNameFilter = true;
+                }
+                else
+                {
+                    FirstNameFilter = false;
+                    LastNameFilter = false;
+                }
+                OnPropertyChanged("AllFilter");
+            }
+        }
+
+        private bool _LastNameFilter;
+
+        public bool LastNameFilter
+        {
+            get { return _LastNameFilter; }
+            set
+            {
+                _LastNameFilter = value;
+                OnPropertyChanged("LastNameFilter");
+            }
+        }
+        private bool _FirstNameFilter;
+
+        public bool FirstNameFilter
+        {
+            get { return _FirstNameFilter; }
+            set
+            {   
+                _FirstNameFilter = value;
+                OnPropertyChanged("FirstNameFilter");
+            }
+        }
+
+        public List<string> SelectedFilters()
+        {
+            List<string> filters = new List<string>();
+            if (AllFilter) filters.Add("AllFilter");
+            if (FirstNameFilter) filters.Add("FirstNameFilter");
+            if (LastNameFilter) filters.Add("LastNameFilter");
+
+            return filters;
+        }
 
 
         private String _SearchText;
@@ -230,18 +316,19 @@ namespace MVVM_FIRST.ViewModel
                 _SearchText = value;
                 SelectedEmployee = null;
                 OnPropertyChanged("SearchText");
-                if (value != null)
+                if (value != "")
                 {
-                    Employees = new ObservableCollection<Employee>(
-                        new ObservableCollection<Employee>(Client.GetEmployeesIncludeEnterprise(0,2))
-                        .Where(l => l.FirstName.ToLower().Contains(value.ToLower())
-                        || l.LastName.ToLower().Contains(value.ToLower())
-                        )
-                        );
+                    CurrentPage = 0;
+                    Employees = new ObservableCollection<Employee>(Client.SearchEmployee(value, SelectedFilters(), CurrentPage, SizeOfPage));
+                    NumberOfPages = GetNumberOfPages(Client.NumberofSearchEmployee(value, SelectedFilters(), CurrentPage, SizeOfPage), SizeOfPage);
+                    PaginationInView = (CurrentPage + 1).ToString() + "/" + NumberOfPages;
                 }
                 else
                 {
-                    Employees = new ObservableCollection<Employee>(Client.GetEmployeesIncludeEnterprise(CurrentPage,SizeOfPage));
+                    Employees = new ObservableCollection<Employee>(Client.GetEmployeesIncludeEnterprise(0, SizeOfPage));
+                    CurrentPage = 0;
+                    NumberOfPages = GetNumberOfPages(Client.NumberOfEmployees(), SizeOfPage);
+                    PaginationInView = (CurrentPage + 1).ToString() + "/" + NumberOfPages;
                 }
             }
         }
@@ -356,7 +443,7 @@ namespace MVVM_FIRST.ViewModel
         {
 
             Client.RemoveEmployee(SelectedEmployee);
-            Employees = new ObservableCollection<Employee>(Client.GetEmployeesIncludeEnterprise(0,2));
+            Employees = new ObservableCollection<Employee>(Client.GetEmployeesIncludeEnterprise(0, 2));
         }
 
         private bool CanDelete(object o)
@@ -378,8 +465,8 @@ namespace MVVM_FIRST.ViewModel
                 emp.EnterpriseId = SelectedEnterprise.Id;
                 emp.Enterprise = SelectedEnterprise;
 
-                Client.UpdateEmployee(emp,emp.Id); 
-              
+                Client.UpdateEmployee(emp, emp.Id);
+
             }
             else
             {
@@ -394,20 +481,20 @@ namespace MVVM_FIRST.ViewModel
                     emp.Enterprise = SelectedEnterprise;
                 }
 
-                Client.AddEmployee(emp); 
-               
+                Client.AddEmployee(emp);
+
 
             }
-            Employees = new ObservableCollection<Employee>(Client.GetEmployeesIncludeEnterprise(0,2));
+            Employees = new ObservableCollection<Employee>(Client.GetEmployeesIncludeEnterprise(0, 2));
             Window.GetWindow(((System.Windows.Controls.Button)obj)).Close();
             SelectedEmployee = null;
         }
 
         private bool CanSave(object o)
         {
-            return SelectedEmployee != null || isNew ;
+            return SelectedEmployee != null || isNew;
         }
-   
+
         private void New(object o)
         {
             FirstName = null;

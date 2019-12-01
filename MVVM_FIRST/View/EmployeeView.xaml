@@ -48,6 +48,28 @@
                                                     Opacity=".56" />
                 </Button>
                 <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right">
+                    <ComboBox Text="Select State"  TextSearch.TextPath ="State"  Name="state"  IsEditable="True" IsReadOnly="True" >
+
+                        <ComboBox.ItemsSource>
+                            <CompositeCollection>
+                                <ComboBoxItem >
+                                    <CheckBox  Name="all" IsChecked="{Binding AllFilter}">All</CheckBox>
+                                </ComboBoxItem>
+                                <ComboBoxItem >
+                                    <CheckBox  Name="FirstName" IsChecked="{Binding FirstNameFilter}">FirstName</CheckBox>
+                                </ComboBoxItem>
+                                <ComboBoxItem >
+                                    <CheckBox  Name="LastName" IsChecked="{Binding LastNameFilter}">LastName</CheckBox>
+                                </ComboBoxItem>
+
+                            </CompositeCollection>
+                        </ComboBox.ItemsSource>
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Name="chkTask" IsChecked="{Binding IsChecked}"  Content="{Binding State}" ></CheckBox>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                     <Button Style="{StaticResource MaterialDesignFlatButton}"
                             ToolTip="MaterialDesignFlatButton"
                             Command="{Binding FirstPageCommand}">
