@@ -4,17 +4,22 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MVVM_FIRST.Model
 {
+    [DataContract]
     public class Employee : INotifyPropertyChanged
     {            
        
-        [Key()]
+        //[Key()]
+        [DataMember]
         public int Id { get; set; }
+
         private string _FirstName;
+        [DataMember]
         public string FirstName {
             get { return _FirstName; }
             set
@@ -25,6 +30,7 @@ namespace MVVM_FIRST.Model
         }
 
         private string _LastName;
+        [DataMember]
         public string LastName
         {
             get { return _LastName; }
@@ -35,6 +41,7 @@ namespace MVVM_FIRST.Model
             }
         }
         private string _Salary;
+        [DataMember]
         public string Salary
         {
             get { return _Salary; }
@@ -45,6 +52,7 @@ namespace MVVM_FIRST.Model
             }
         }
         private int _Age;
+        [DataMember]
         public int Age
         {
             get { return _Age; }
@@ -55,6 +63,7 @@ namespace MVVM_FIRST.Model
             }
         }
         private string _City;
+        [DataMember]
         public string City
         {
             get { return _City; }
@@ -67,6 +76,7 @@ namespace MVVM_FIRST.Model
 
         [ForeignKey(nameof(_Enterprise))]
         private int _EnterpriseId;
+        [DataMember]
         public int EnterpriseId
         {
             get { return _EnterpriseId; }
@@ -77,6 +87,7 @@ namespace MVVM_FIRST.Model
             }
         }
         private Enterprise _Enterprise;
+        [DataMember]
         public virtual Enterprise Enterprise
         {
             get { return _Enterprise; }

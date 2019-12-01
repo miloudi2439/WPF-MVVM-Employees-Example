@@ -52,7 +52,7 @@
                     </Button>
                     <Label Content="1 / 1" VerticalAlignment="Center"/>
                     <Button Style="{StaticResource MaterialDesignFlatButton}"
-                            ToolTip="MaterialDesignFlatButton">
+                            ToolTip="MaterialDesignFlatButton" Command="{Binding NextPageCommand}">
                         <materialDesign:PackIcon Kind="KeyboardArrowRight"/>
                     </Button>
                     <Button Style="{StaticResource MaterialDesignFlatButton}"

@@ -3,17 +3,22 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SDK.Model
 {
+    [DataContract]
+
     public class User : INotifyPropertyChanged
     {
 
         [Key()]
+        [DataMember]
         public int Id { get; set; }
         private string _Password;
+        [DataMember]
         public string Password
         {
             get { return _Password; }
@@ -24,6 +29,7 @@ namespace SDK.Model
             }
         }
         private string _FirstName;
+        [DataMember]
         public string FirstName
         {
             get { return _FirstName; }
@@ -35,6 +41,7 @@ namespace SDK.Model
         }
 
         private string _LastName;
+        [DataMember]
         public string LastName
         {
             get { return _LastName; }
@@ -45,6 +52,7 @@ namespace SDK.Model
             }
         }
         private string _Email;
+        [DataMember]
         public string Mail
         {
             get { return _Email; }
@@ -56,6 +64,7 @@ namespace SDK.Model
         }
 
         private string _Address;
+        [DataMember]
         public string Address
         {
             get { return _Address; }

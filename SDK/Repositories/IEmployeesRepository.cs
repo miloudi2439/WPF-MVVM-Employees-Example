@@ -5,6 +5,6 @@ namespace SDK.Model
 {
     public interface IEmployeesRepository
     {
-        IEnumerable<Employee> GetEmployeesIncludeEnterprise();
+        List<Employee> GetEmployeesIncludeEnterprise(int currentPage, int pageSize);
     }
 }

@@ -1,10 +1,12 @@
-﻿using MVVM_FIRST.Model;
+﻿
 using SDK.Model;
+using SDK.Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,10 +15,13 @@ namespace MVVM_FIRST.ViewModel
 {
     class UserLoginViewModel : INotifyPropertyChanged
     {
-        private UnitOfWork _UnitOfWork = new UnitOfWork();
+        //private ServiceReference1.ServiceClient Client = new ServiceReference1.ServiceClient();
+        ChannelFactory<IService> channelFactory = new ChannelFactory<IService>(new BasicHttpBinding(), "http://localhost:8090/SDK/Service/Service");
+        IService Client;
         public UserLoginViewModel()
-        { 
-            Users = new ObservableCollection<User>(_UnitOfWork.UsersRepository.GetAll());
+        {
+            Client = channelFactory.CreateChannel();
+            Users = new ObservableCollection<User>(Client.GetUsers());
             LoginCommand = new RelayCommand(Login , CanLogin);
         
 

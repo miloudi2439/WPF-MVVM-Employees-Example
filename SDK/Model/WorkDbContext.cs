@@ -22,6 +22,8 @@ namespace MVVM_FIRST.Model
     {
         public WorkDbContext() : base("name=DefaultConnection")
         {
+            this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.ProxyCreationEnabled = false;
             Database.SetInitializer(new DbInitialier());
         }
 

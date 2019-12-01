@@ -1,4 +1,4 @@
-﻿using MVVM_FIRST.Model;
+﻿
 using MVVM_FIRST.ViewModel;
 using System;
 using System.Collections.Generic;

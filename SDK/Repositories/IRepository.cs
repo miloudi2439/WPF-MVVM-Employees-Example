@@ -9,11 +9,12 @@ namespace SDK.Model
 {
     public interface IRepository<T>
     {
-   
 
-        IEnumerable<T> GetAll();
+
+        List<T> GetAll();
         void Add(T obj);
         void Remove(T obj);
         void Update(T obj, int Id);
+        int NumberOfRows();
     }
 }

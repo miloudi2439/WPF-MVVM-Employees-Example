@@ -14,10 +14,12 @@ namespace SDK.Model
         {
         }
 
-        public IEnumerable<Employee> GetEmployeesIncludeEnterprise()
+        public List<Employee> GetEmployeesIncludeEnterprise(int currentPage , int pageSize )
         {
-            return _db.Employees.Include(x => x.Enterprise).ToList();
+            return _db.Employees.Include(x => x.Enterprise).OrderBy(x => x.Id).Skip(currentPage*pageSize).Take(pageSize).ToList();
+            //return _db.Employees.ToList();
         }
 
+ 
     }
 }

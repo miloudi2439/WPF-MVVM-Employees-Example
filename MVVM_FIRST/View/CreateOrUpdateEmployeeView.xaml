@@ -57,7 +57,7 @@
 
             <Label Content="Enterprise" Grid.Row="5" Grid.Column="0" Margin="5 10 0 0"/>
             <ComboBox x:Name="Enterprised" ItemsSource="{Binding Path=Enterprises}" SelectedItem="{Binding  SelectedEnterprise}"
-                          DisplayMemberPath="Name" SelectedValue="{Binding SelectedItem.EnterpriseId,  ElementName=Data_Grid_Employee}" SelectedValuePath="Id"       
+                          DisplayMemberPath="Name" SelectedValue="{Binding SelectedEmployee.EnterpriseId}" SelectedValuePath="Id"       
                           Grid.Row="5" Grid.Column="1" Margin="5 10 5 0"/>
 
 

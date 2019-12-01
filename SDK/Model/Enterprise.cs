@@ -8,9 +8,6 @@ using System.Threading.Tasks;
 
 namespace MVVM_FIRST.Model
 {
-
-
-
     [DataContract]
     public class Enterprise : INotifyPropertyChanged
     {

@@ -19,9 +19,14 @@ namespace SDK.Model
             this.dbSet = _db.Set<T>();
         }
 
-        public IEnumerable<T> GetAll()
+        public List<T> GetAll()
         {
             return _db.Set<T>().ToList();
+        }
+
+        public int NumberOfRows()
+        {
+            return _db.Set<T>().ToList().Count();
         }
 
         public virtual T GetByID(object id)
