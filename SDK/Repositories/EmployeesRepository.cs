@@ -24,8 +24,9 @@ namespace SDK.Model
         {
             bool firstName =filters.Contains("FirstNameFilter");
             bool lastName = filters.Contains("LastNameFilter");
-
-            if(lastName && firstName)
+            searchText = searchText.ToLower();
+          
+            if (lastName && firstName)
                 return _db.Employees.Where(x => x.FirstName.ToLower().Contains(searchText.ToLower())
                 || x.LastName.ToLower().Contains(searchText.ToLower())).Include(x => x.Enterprise).
                 OrderBy(x => x.Id).Skip(currentPage * pageSize).Take(pageSize).ToList();
@@ -46,14 +47,14 @@ namespace SDK.Model
             if (lastName && firstName)
                 return _db.Employees.Where(x => x.FirstName.ToLower().Contains(searchText.ToLower())
                 || x.LastName.ToLower().Contains(searchText.ToLower())).Include(x => x.Enterprise).
-                OrderBy(x => x.Id).ToList().Count;
+                OrderBy(x => x.Id).Count();
 
             else if (lastName)
                 return _db.Employees.Where(x => x.LastName.ToLower().Contains(searchText.ToLower())).Include(x => x.Enterprise).
-                       OrderBy(x => x.Id).ToList().Count;
+                       OrderBy(x => x.Id).Count();
 
             return _db.Employees.Where(x => x.FirstName.ToLower().Contains(searchText.ToLower())).Include(x => x.Enterprise).
-            OrderBy(x => x.Id).ToList().Count;
+            OrderBy(x => x.Id).ToList().Count();
         }
     }
 }

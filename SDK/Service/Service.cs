@@ -4,16 +4,47 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SDK.Service
 {
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class Service : IService
     {
         private UnitOfWork _UnitOfWork = new UnitOfWork();
 
 
+        //private static readonly Lazy<Service> lazy =new Lazy<Service> (() => new Service());
+
+        //public static Service Instance { get { return lazy.Value; } }
+
+       /* public Service()
+        {
+            var entreprise = _UnitOfWork.EnterprisesRepository.GetByID(1);
+            for (int i = 0; i < 70000; i++)
+            {
+                var emp = new Employee
+                {
+                    FirstName = $"Employee FN {i}",
+                    LastName = $"Employee LN {i}",
+                    City = $"City  {i%100}",
+                    Salary ="20000DA" , 
+                    Age = 25 ,
+                    EnterpriseId = entreprise.Id
+                };
+                _UnitOfWork.EmployeesRepository.Add(emp);
+                Console.WriteLine($"items count {i}");
+                if (i % 100 == 0)
+                {
+                    _UnitOfWork.Save();
+                }
+
+            }
+            _UnitOfWork.Save();
+        }
+        */
 
         public void AddEmployee(Employee obj)
         {

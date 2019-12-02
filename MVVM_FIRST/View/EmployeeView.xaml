@@ -13,8 +13,11 @@
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto"
              FontFamily="{DynamicResource MaterialDesignFont}">
+    
+    
 
     <StackPanel Background="white">
+        
         <Label Content="Employees" FontSize="40" />
         <Grid Margin="25 0 25 0" >
             <Grid.ColumnDefinitions>
@@ -22,15 +25,19 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
        
-           <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="0 0 0 0">
-                <Button Content="Create" Command = "{Binding CreateCommand}" FontSize="15"  Margin="5 10 0 0"/>
+           <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="0 0 0 0" >
+
+                
+                <Button Content="Create" Command = "{Binding CreateCommand}" FontSize="15"  Margin="5 10 0 0">
+                    
+                </Button>
                 <Button Content="Update" Command = "{Binding UpdateCommand}" FontSize="15"  Margin="5 10 0 0"/>
                 <Button Content="Delete" Command = "{Binding DeleteCommand}" FontSize="15"  Margin="5 10 5 0"/>
            </StackPanel>
            <Grid HorizontalAlignment="Right" Grid.Column="1" >
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -40,7 +47,7 @@
                     <TextBox Grid.Column="0" Grid.Row="0"
                              Margin="8 0 0 0"
                              materialDesign:HintAssist.Hint="Search"
-                             MinWidth="300"
+                             MinWidth="400"
                              VerticalAlignment="Center" 
                              Text="{Binding  SearchText, UpdateSourceTrigger=PropertyChanged}"/>
                 <Button Grid.Column="1" Grid.Row="0" Style="{DynamicResource MaterialDesignToolButton}">
@@ -48,8 +55,10 @@
                                                     Opacity=".56" />
                 </Button>
                 <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right">
-                    <ComboBox Text="Select State"  TextSearch.TextPath ="State"  Name="state"  IsEditable="True" IsReadOnly="True" >
-
+                    <materialDesign:PackIcon Kind="Filter" VerticalAlignment="Center"/>
+                    <ComboBox  Text="Filters" TextSearch.TextPath ="State"  Name="state"  IsEditable="True" IsReadOnly="True"
+                               Margin="0 0 130 0">
+ 
                         <ComboBox.ItemsSource>
                             <CompositeCollection>
                                 <ComboBoxItem >
@@ -104,11 +113,16 @@
                                 SelectedItem = "{Binding SelectedEmployee , Mode=TwoWay}"
                                 HorizontalContentAlignment="Stretch" 
                                 ColumnWidth="*"  HeadersVisibility="Column"
-                                Margin="0 0 0 5" ItemsSource="{Binding Path = Employees}"
+                                Margin="0 0 0 10" ItemsSource="{Binding Path = Employees}"
+                                MaxHeight="800"
+                                Height="auto"
+                                ScrollViewer.CanContentScroll="True" 
+                                ScrollViewer.VerticalScrollBarVisibility="Auto"
                                 SelectionUnit="FullRow"
                                 IsReadOnly="True" SelectionMode="Single"
                                 SelectedCellsChanged="DataGrid_SelectedCellsChanged_Employee" 
-                        AutoGenerateColumns="False" SelectionChanged="Data_Grid_Employee_SelectionChanged">
+                                AutoGenerateColumns="False" SelectionChanged="Data_Grid_Employee_SelectionChanged"
+                                >
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="First Name" Binding="{Binding FirstName, Mode=TwoWay}"/>

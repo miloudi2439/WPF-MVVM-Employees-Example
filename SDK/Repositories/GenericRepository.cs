@@ -26,7 +26,7 @@ namespace SDK.Model
 
         public int NumberOfRows()
         {
-            return _db.Set<T>().ToList().Count();
+            return _db.Set<T>().Count();
         }
 
         public virtual T GetByID(object id)
