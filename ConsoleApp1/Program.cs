@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LanguagePlugin;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
@@ -11,24 +12,33 @@ namespace ConsoleApp1
     class Program
     {
 
-        [Import]
-        string message;
+       
         static void Main(string[] args)
         {
             Program p = new Program();
             p.Run();
         }
 
+        [ImportMany(typeof(ILanguage))]
+        List<ILanguage> _rules;
+
+
         private void Compose()
         {
-            AssemblyCatalog catalog = new AssemblyCatalog(System.Reflection.Assembly.GetExecutingAssembly());
+            //AssemblyCatalog catalog = new AssemblyCatalog(System.Reflection.Assembly.GetExecutingAssembly());
+            DirectoryCatalog catalog = new DirectoryCatalog("Plugins", "*.dll");
+
             CompositionContainer container = new CompositionContainer(catalog);
             container.SatisfyImportsOnce(this);
         }
         void Run()
         {
             Compose();
-            Console.WriteLine(message);
+            foreach (var item in _rules)
+            {
+
+                Console.WriteLine(item.GetContext());
+            }
             Console.ReadKey();
         }
     }

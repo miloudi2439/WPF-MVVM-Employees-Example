@@ -18,7 +18,26 @@
 
     <StackPanel Background="white">
         
-        <Label Content="Employees" FontSize="40" />
+        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Content="Employees" FontSize="40" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" Margin="0 0 20 0">
+                <materialDesign:PopupBox
+                          DockPanel.Dock="Right"
+                          PlacementMode="BottomAndAlignRightEdges">
+                    <materialDesign:PopupBox.ToggleContent>
+                        <materialDesign:PackIcon Kind="Language" />
+                    </materialDesign:PopupBox.ToggleContent>
+                    <ListBox ItemsSource="{Binding Languages}"/> 
+                </materialDesign:PopupBox>
+            </StackPanel>
+
+
+        </Grid>
         <Grid Margin="25 0 25 0" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>

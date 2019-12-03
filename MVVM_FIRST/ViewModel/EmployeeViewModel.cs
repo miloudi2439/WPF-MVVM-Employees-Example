@@ -14,6 +14,9 @@ using MVVM_FIRST.Model;
 using SDK.Model;
 using System.ServiceModel;
 using SDK.Service;
+using System.ComponentModel.Composition.Hosting;
+using System.ComponentModel.Composition;
+using LanguagePlugin;
 
 namespace MVVM_FIRST.ViewModel
 {
@@ -48,6 +51,38 @@ namespace MVVM_FIRST.ViewModel
             LastPageCommand = new RelayCommand(LastPage, CanLasttPage);
 
             FirstNameFilter = true;
+            Languages = new List<string>();
+
+            Compose();
+            foreach (var item in _rules)
+            {
+                Languages.Add(item.GetContext());
+            }
+            //Languages.Add("Arabic");
+            //Languages.Add("English");
+
+
+        }
+
+        [ImportMany(typeof(ILanguage))]
+        List<ILanguage> _rules;
+
+        private void Compose()
+        {
+            // AssemblyCatalog catalog = new AssemblyCatalog(System.Reflection.Assembly.GetExecutingAssembly());
+            DirectoryCatalog catalog = new DirectoryCatalog("Plugins", "*.dll");
+            CompositionContainer container = new CompositionContainer(catalog);
+            container.SatisfyImportsOnce(this);
+
+        }
+
+        private List<String> _Languages;
+
+        public List<String> Languages
+        {
+            get { return _Languages; }
+            set { _Languages = value;
+                OnPropertyChanged(nameof(Languages)) ;  }
         }
 
         public void Init()
