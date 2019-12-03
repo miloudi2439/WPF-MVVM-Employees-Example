@@ -29,6 +29,7 @@ namespace MVVM_FIRST.ViewModel
 
         public EmployeeViewModel()
         {
+            SwitchView = 0; 
 
             Client = channelFactory.CreateChannel();
             CurrentPage = 0;
@@ -49,6 +50,8 @@ namespace MVVM_FIRST.ViewModel
             PreviousPageCommand = new RelayCommand(PreviousPage, CanPreviousPage);
             FirstPageCommand = new RelayCommand(FirstPage, CanFirstPage);
             LastPageCommand = new RelayCommand(LastPage, CanLasttPage);
+            ShowListModeCommand = new RelayCommand(ShowListMode);
+            ShowCardModeCommand = new RelayCommand(ShowCardMode);
 
             FirstNameFilter = true;
             Languages = new List<string>();
@@ -64,6 +67,16 @@ namespace MVVM_FIRST.ViewModel
 
         }
 
+        private void ShowListMode(object obj)
+        {
+           SwitchView = 0 ;
+        }
+
+        private void ShowCardMode(object obj)
+        {
+            SwitchView = 1;
+        }
+
         [ImportMany(typeof(ILanguage))]
         List<ILanguage> _rules;
 
@@ -75,6 +88,17 @@ namespace MVVM_FIRST.ViewModel
             container.SatisfyImportsOnce(this);
 
         }
+
+        private int _SwitchView;
+
+        public int SwitchView
+        {
+            get { return _SwitchView; }
+            set { _SwitchView = value;
+                OnPropertyChanged(nameof(SwitchView));
+            }
+        }
+
 
         private List<String> _Languages;
 
@@ -288,6 +312,11 @@ namespace MVVM_FIRST.ViewModel
         public RelayCommand PreviousPageCommand { get; set; }
         public RelayCommand FirstPageCommand { get; set; }
         public RelayCommand LastPageCommand { get; set; }
+        public RelayCommand ShowListModeCommand { get; set; }
+
+        public RelayCommand ShowCardModeCommand { get; set; }
+
+        
 
         private bool _AllFilter;
 

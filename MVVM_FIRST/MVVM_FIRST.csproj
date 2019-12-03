@@ -71,6 +71,7 @@
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -89,6 +90,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CustomContent\TextSearch.cs" />
     <Compile Include="Pagination.cs" />
     <Compile Include="RelayCommand.CS" />
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
@@ -97,14 +99,26 @@
     <Compile Include="View\CreateOrUpdateEmployeeView.xaml.cs">
       <DependentUpon>CreateOrUpdateEmployeeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\EmployeeCard.xaml.cs">
+      <DependentUpon>EmployeeCard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EmployeeView.xaml.cs">
       <DependentUpon>EmployeeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EmployeeViewCardMode.xaml.cs">
+      <DependentUpon>EmployeeViewCardMode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EmployeeViewListMode.xaml.cs">
+      <DependentUpon>EmployeeViewListMode.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EnterpriseView.xaml.cs">
       <DependentUpon>EnterpriseView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TextBoxHint.xaml.cs">
+      <DependentUpon>TextBoxHint.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -118,11 +132,27 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\CreateOrUpdateEmployeeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\EmployeeCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\EmployeeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EmployeeViewCardMode.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EmployeeViewListMode.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -131,6 +161,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TextBoxHint.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -185,6 +219,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\person.jpg" />
     <Content Include="Plugins\LanguagePlugin.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

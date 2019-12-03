@@ -4,12 +4,26 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:cc="clr-namespace:MVVM_FIRST.CustomContent"
              xmlns:local="clr-namespace:MVVM_FIRST.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel Background="White">
 
-        <Label Content="Enterprises" FontSize="40" />
+      
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Content="Enterprises" FontSize="40" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" Margin="0 0 20 0">
+                <cc:TextSearch />
+            </StackPanel>
+
+
+        </Grid>
         <Grid Margin="25 0 25 0" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>

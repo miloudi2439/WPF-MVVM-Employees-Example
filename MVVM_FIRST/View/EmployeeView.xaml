@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MVVM_FIRST.View"
+             xmlns:l="clr-namespace:MVVM_FIRST.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="469" d:DesignWidth="1008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -13,8 +14,20 @@
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto"
              FontFamily="{DynamicResource MaterialDesignFont}">
-    
-    
+
+    <UserControl.DataContext>
+        <l:EmployeeViewModel />
+    </UserControl.DataContext>
+
+    <UserControl.Resources>
+        <DataTemplate x:Key="View1Template" DataType="{x:Type local:EmployeeView}">
+            <local:EmployeeViewListMode />
+        </DataTemplate>
+
+        <DataTemplate x:Key="View2Template" DataType="{x:Type local:EmployeeView}">
+            <local:EmployeeViewCardMode />
+        </DataTemplate>
+    </UserControl.Resources>
 
     <StackPanel Background="white">
         
@@ -119,45 +132,42 @@
                             Command="{Binding LastPageCommand}">
                         <materialDesign:PackIcon Kind="PageLast" />
                     </Button>
+                    <RadioButton Style="{StaticResource MaterialDesignFlatButton}"
+                            ToolTip="MaterialDesignFlatButton"
+                            Command="{Binding ShowCardModeCommand}">
+                        <materialDesign:PackIcon Kind="ViewGrid" />
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource MaterialDesignFlatButton}"
+                            ToolTip="MaterialDesignFlatButton"
+                            Command="{Binding ShowListModeCommand}" IsChecked="True">
+                        <materialDesign:PackIcon Kind="ViewSequential" />
+                    </RadioButton>
+
                 </StackPanel>
                 
             </Grid>
         </Grid>
+        
+        
 
 
+        <!--<local:EmployeeViewCardMode x:Name="EmployeeCardMode"/>-->
+        <!--<local:EmployeeViewListMode x:Name="EmployeeListMode"/>-->
+
+        <ContentControl Content="{Binding }">
+            <ContentControl.Style>
+                <Style TargetType="{x:Type ContentControl}">
+                    <Setter Property="ContentTemplate" Value="{StaticResource View1Template}" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SwitchView}" Value="1">
+                            <Setter Property="ContentTemplate" Value="{StaticResource View2Template}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
 
 
-
-        <DataGrid   Name="Data_Grid_Employee" HorizontalAlignment="Stretch" 
-                                SelectedItem = "{Binding SelectedEmployee , Mode=TwoWay}"
-                                HorizontalContentAlignment="Stretch" 
-                                ColumnWidth="*"  HeadersVisibility="Column"
-                                Margin="0 0 0 10" ItemsSource="{Binding Path = Employees}"
-                                MaxHeight="800"
-                                Height="auto"
-                                ScrollViewer.CanContentScroll="True" 
-                                ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                SelectionUnit="FullRow"
-                                IsReadOnly="True" SelectionMode="Single"
-                                SelectedCellsChanged="DataGrid_SelectedCellsChanged_Employee" 
-                                AutoGenerateColumns="False" SelectionChanged="Data_Grid_Employee_SelectionChanged"
-                                >
-
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName, Mode=TwoWay}"/>
-                <DataGridTextColumn Header="Last Name" Binding="{Binding Path = LastName , Mode=OneWay}"/>
-                <DataGridTextColumn Header="Salary" Binding="{Binding Path = Salary , Mode=OneWay}"/>
-                <DataGridTextColumn Header="Age" Binding="{Binding Path = Age , Mode=OneWay}"/>
-                <DataGridTextColumn Header="City" Binding="{Binding Path = City , Mode=OneWay}"/>
-                <DataGridTextColumn Header="Enterprise" 
-                                            Binding="{Binding Enterprise.Name}"  
-                                           />
-
-            </DataGrid.Columns>
-
-
-
-        </DataGrid>
 
     </StackPanel>
 

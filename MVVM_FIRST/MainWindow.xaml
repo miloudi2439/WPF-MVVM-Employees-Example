@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MVVM_FIRST"
         xmlns:views="clr-namespace:MVVM_FIRST.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1008.008" Width="1669.551"
+        Title="MainWindow" Height="1008.008" Width="1500"
         WindowStartupLocation="CenterScreen" 
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -15,6 +15,8 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         FontFamily="{DynamicResource MaterialDesignFont}">
+
+    
     <Grid>
         <TabControl TabStripPlacement="Left"  VerticalAlignment="Stretch" Height="Auto" Margin="-2 -2 0 0" >
             <TabControl.Resources>

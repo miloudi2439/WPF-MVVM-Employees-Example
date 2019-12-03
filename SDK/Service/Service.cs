@@ -20,21 +20,45 @@ namespace SDK.Service
 
         //public static Service Instance { get { return lazy.Value; } }
 
-       /* public Service()
+        /* public Service()
+         {
+             var entreprise = _UnitOfWork.EnterprisesRepository.GetByID(1);
+             for (int i = 0; i < 70000; i++)
+             {
+                 var emp = new Employee
+                 {
+                     FirstName = $"Employee FN {i}",
+                     LastName = $"Employee LN {i}",
+                     City = $"City  {i%100}",
+                     Salary ="20000DA" , 
+                     Age = 25 ,
+                     EnterpriseId = entreprise.Id
+                 };
+                 _UnitOfWork.EmployeesRepository.Add(emp);
+                 Console.WriteLine($"items count {i}");
+                 if (i % 100 == 0)
+                 {
+                     _UnitOfWork.Save();
+                 }
+
+             }
+             _UnitOfWork.Save();
+         }
+         */
+/*
+        public Service()
         {
-            var entreprise = _UnitOfWork.EnterprisesRepository.GetByID(1);
-            for (int i = 0; i < 70000; i++)
+             
+            for (int i = 0; i < 10000; i++)
             {
-                var emp = new Employee
+                var emp = new Enterprise
                 {
-                    FirstName = $"Employee FN {i}",
-                    LastName = $"Employee LN {i}",
-                    City = $"City  {i%100}",
-                    Salary ="20000DA" , 
-                    Age = 25 ,
-                    EnterpriseId = entreprise.Id
+                    Name = $"Enterprise  {i}",
+                    Location = $"City  {i}",
+                    Domaine = $"Domaine  {i % 100}",
+                     
                 };
-                _UnitOfWork.EmployeesRepository.Add(emp);
+                _UnitOfWork.EnterprisesRepository.Add(emp);
                 Console.WriteLine($"items count {i}");
                 if (i % 100 == 0)
                 {
@@ -43,8 +67,7 @@ namespace SDK.Service
 
             }
             _UnitOfWork.Save();
-        }
-        */
+        }*/
 
         public void AddEmployee(Employee obj)
         {
