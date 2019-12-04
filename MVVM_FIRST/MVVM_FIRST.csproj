@@ -90,6 +90,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CustomContent\CustomComboBox.cs" />
     <Compile Include="CustomContent\TextSearch.cs" />
     <Compile Include="Pagination.cs" />
     <Compile Include="RelayCommand.CS" />
@@ -98,6 +99,9 @@
     <Compile Include="ViewModel\UserLoginViewModel.cs" />
     <Compile Include="View\CreateOrUpdateEmployeeView.xaml.cs">
       <DependentUpon>CreateOrUpdateEmployeeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CustomComboboxControl.xaml.cs">
+      <DependentUpon>CustomComboboxControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EmployeeCard.xaml.cs">
       <DependentUpon>EmployeeCard.xaml</DependentUpon>
@@ -137,6 +141,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\CreateOrUpdateEmployeeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CustomComboboxControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

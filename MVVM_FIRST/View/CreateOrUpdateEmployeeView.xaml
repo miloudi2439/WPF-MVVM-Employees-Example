@@ -15,6 +15,7 @@
         TextOptions.TextRenderingMode="Auto"
         FontFamily="{DynamicResource MaterialDesignFont}">
     
+
     <StackPanel Margin="20 0 20 10" Grid.Column="1" Grid.RowSpan="2">
         <!-- DataContext="{Binding ElementName=Data_Grid_Employee , Path=SelectedItem}" > -->
 
@@ -56,9 +57,86 @@
 
 
             <Label Content="Enterprise" Grid.Row="5" Grid.Column="0" Margin="5 10 0 0"/>
-            <ComboBox x:Name="Enterprised" ItemsSource="{Binding Path=Enterprises}" SelectedItem="{Binding  SelectedEnterprise}"
+
+            <Grid Width="100"  Grid.Row="5" Grid.Column="1"  >
+
+                <ToggleButton   x:Name="PopupButton"   
+                 IsChecked="{Binding ElementName=Popup, Path=IsOpen}">
+                    <ToggleButton.Style>
+                        <Style TargetType="ToggleButton" >
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsOpen, ElementName=Popup}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ToggleButton.Style>
+
+                    <ToggleButton.Template>
+                        <ControlTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Choose"/>
+                                <materialDesign:PackIcon Kind="ArrowDropDown" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </ToggleButton.Template>
+                </ToggleButton>
+
+                <Popup x:Name="Popup" StaysOpen="False" PlacementTarget="{Binding ElementName=PopupButton}" 
+                     Placement="Bottom" >
+                    <StackPanel Background="White">
+                        <TextBox Grid.Column="0" Grid.Row="0"
+                             Margin="8 0 0 0"
+                             materialDesign:HintAssist.Hint="Search"
+                             MinWidth="400"
+                             VerticalAlignment="Center" 
+                             Text="{Binding  SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+
+
+                        <DataGrid   Name="Data_Grid_Enterprise" HorizontalAlignment="Stretch" 
+                                HorizontalContentAlignment="Stretch" 
+                                ColumnWidth="100"  HeadersVisibility="None"
+                                Margin="0 0 0 15" ItemsSource="{Binding DataContext.Employees ,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                SelectionUnit="FullRow"
+                                IsReadOnly="True"
+                                AutoGenerateColumns="False"
+                                MaxHeight="150">
+
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Enterprise" Binding="{Binding Path = FirstName , Mode=OneWay}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Button Style="{StaticResource MaterialDesignFlatButton}"   ToolTip="MaterialDesignFlatButton">
+                            See more ..
+                        </Button>
+                        <Button Style="{StaticResource MaterialDesignFlatButton}"   ToolTip="MaterialDesignFlatButton">
+                            Create or Edit
+                        </Button>
+                    </StackPanel>
+                </Popup>
+            </Grid>
+            <!-- <ComboBox x:Name="Enterprised" ItemsSource="{Binding Path=Enterprises}" SelectedItem="{Binding  SelectedEnterprise}"
                           DisplayMemberPath="Name" SelectedValue="{Binding SelectedEmployee.EnterpriseId}" SelectedValuePath="Id"       
-                          Grid.Row="5" Grid.Column="1" Margin="5 10 5 0"/>
+                          Grid.Row="5" Grid.Column="1" Margin="5 10 5 0"/>-->
+
+
+            <!--  <ComboBox x:Name="Enterprised"        
+                          Grid.Row="5" Grid.Column="1" Margin="5 10 5 0" ItemsSource="{Binding Employees}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                        <TextBox Text="{Binding FirstName}" />
+                        <Button Content="click" />
+                        </StackPanel>
+                    </DataTemplate>
+
+                </ComboBox.ItemTemplate>
+
+            </ComboBox> -->
+
+
+    
+
 
 
 
@@ -66,7 +144,7 @@
         <Grid Margin="10 50 10 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/> 
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <Button Name="CancelButton"  

@@ -56,5 +56,6 @@ namespace SDK.Model
             return _db.Employees.Where(x => x.FirstName.ToLower().Contains(searchText.ToLower())).Include(x => x.Enterprise).
             OrderBy(x => x.Id).ToList().Count();
         }
+
     }
 }

@@ -18,7 +18,7 @@ namespace MVVM_FIRST.ViewModel
         public EnterpriseViewModel()
         {
             Client = channelFactory.CreateChannel();
-            Enterprises = new ObservableCollection<Enterprise>(Client.GetEnterprises());
+            //Enterprises = new ObservableCollection<Enterprise>(Client.GetEnterprises());
         }
        
 

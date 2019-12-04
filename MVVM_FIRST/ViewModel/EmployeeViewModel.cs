@@ -37,7 +37,7 @@ namespace MVVM_FIRST.ViewModel
             NumberOfPages = GetNumberOfPages(Client.NumberOfEmployees(), SizeOfPage);
             PaginationInView = (CurrentPage + 1).ToString() + "/" + NumberOfPages;
 
-            Enterprises = new ObservableCollection<Enterprise>(Client.GetEnterprises());
+            //Enterprises = new ObservableCollection<Enterprise>(Client.GetEnterprises());
             Employees = new ObservableCollection<Employee>(Client.GetEmployeesIncludeEnterprise(CurrentPage, SizeOfPage));
 
             DeleteCommand = new RelayCommand(Delete, CanDelete);

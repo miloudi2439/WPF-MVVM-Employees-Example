@@ -45,11 +45,11 @@ namespace SDK.Service
              _UnitOfWork.Save();
          }
          */
-/*
+         /*
         public Service()
         {
              
-            for (int i = 0; i < 10000; i++)
+            for (int i = 0; i < 20000; i++)
             {
                 var emp = new Enterprise
                 {
@@ -67,8 +67,8 @@ namespace SDK.Service
 
             }
             _UnitOfWork.Save();
-        }*/
-
+        }
+        */
         public void AddEmployee(Employee obj)
         {
             _UnitOfWork.EmployeesRepository.Add(obj);
@@ -108,7 +108,8 @@ namespace SDK.Service
 
         public int NumberOfEmployees()
         {
-            return _UnitOfWork.EmployeesRepository.NumberOfRows();
+            int count = _UnitOfWork.EmployeesRepository.NumberOfRows();
+            return count;
         }
 
         public int NumberOfEnterprises()
